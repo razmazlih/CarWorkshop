@@ -22,11 +22,13 @@ def car_add():
     problems = get_all_problems()
     return render_template('add_car.html', problems=problems)
 
-@car_blueprint.route('/delete', methods=['POST'])
+@car_blueprint.route('/delete', methods=['GET', 'POST'])
 def car_delete():
-    car_data = request.form
-    delete_car(car_data['car_number'])
-    return redirect(url_for('cars.car_list'))
+    if request.method == 'POST':
+        car_data = request.form
+        delete_car(car_data['car_number'])
+        return redirect(url_for('cars.car_list'))
+    return render_template('delete_car.html')
 
 @car_blueprint.route('/search', methods=['GET', 'POST'])
 def car_search():
