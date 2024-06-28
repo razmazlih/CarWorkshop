@@ -1,8 +1,15 @@
-from cars.menu import main
+from flask import Flask, render_template
+from cars.menu import car_blueprint
+from config import Config
 
+app = Flask(__name__)
+app.config.from_object(Config)
 
-if __name__ == "__main__":
-    main()
+app.register_blueprint(car_blueprint, url_prefix='/cars')
 
-# from cars.actions import all_cars
+@app.route('/')
+def home():
+    return render_template('index.html')
 
+if __name__ == '__main__':
+    app.run(debug=True)

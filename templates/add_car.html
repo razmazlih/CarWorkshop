@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Car</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Add a New Car</h1>
+        <form method="post">
+            <label for="car_number">Car Number:</label>
+            <input type="text" id="car_number" name="car_number" required><br>
+            <label for="problems">Problems:</label><br>
+            {% for problem in problems %}
+                <input type="checkbox" id="{{ problem }}" name="problems" value="{{ problem }}">
+                <label for="{{ problem }}">{{ problem }}</label><br>
+            {% endfor %}
+            <input type="submit" value="Add Car">
+        </form>
+        <a href="{{ url_for('cars.car_list') }}">Back to Car List</a>
+    </div>
+<div class="container">
+    <a href="/">Back</a>
+</div>
+</body>
+</html>
