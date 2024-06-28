@@ -37,3 +37,14 @@ def search_car(car_number):
         if car['car_number'] == car_number:
             return car
     return None
+
+def get_total_income():
+    global cars
+    total = 0
+    for car in cars:
+        total += calculate_total_price(car['problems'])
+    return total
+
+def get_number_of_cars():
+    global cars
+    return len(cars)

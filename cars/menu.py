@@ -1,12 +1,12 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from cars.actions import list_cars, add_car, delete_car, search_car
+from cars.actions import list_cars, add_car, delete_car, search_car, get_total_income, get_number_of_cars
 from problems.problems import get_all_problems
 
 car_blueprint = Blueprint('cars', __name__)
 
 @car_blueprint.route('/')
 def car_menu():
-    return render_template('index.html')
+    return render_template('index.html', total_income=get_total_income(), number_of_cars=get_number_of_cars())
 
 @car_blueprint.route('/list')
 def car_list():
