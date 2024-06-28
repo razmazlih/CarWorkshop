@@ -92,5 +92,20 @@ class CarManager:
             if one_car[0] == name:
                 return f"{name}'s car price is {one_car[1].get_car_price()} NIS"
 
+    def get_total_profit(self):
+        if self._check_have_cars():
+            return ""
+
+        total_profit = 0
+        for one_car in self.cars:
+            car_class = one_car[1]
+            total_profit += car_class.get_car_price()
+
+        return f"total profit is {total_profit} NIS"
+
 all_cars = CarManager()
 
+# all_cars.add_car("Raz", True, True, True, True, True, True)
+# all_cars.add_car("Ron", True, True, True, True, True, True)
+
+print(all_cars.get_total_profit())

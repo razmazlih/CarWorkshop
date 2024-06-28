@@ -12,6 +12,8 @@ def main():
     car_manager = CarManager()
 
     while True:
+        print("\n")
+        print(car_manager.get_total_profit())
         print_menu()
         choice = input("Enter your choice: ")
 
