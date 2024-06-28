@@ -25,7 +25,12 @@ def main():
             gear = input("Gear problem - 1000 NIS (yes/no): ").lower() == 'yes'
 
             car_manager.add_car(name, engine, breaks, small_treatment, full_treatment, filters_oil, gear)
-            print(f"Car {name} added successfully.")
+            print(f"\n{car_manager.search_car(name)}")
+            agree = input("Do you agree? (yes/no): ").lower() == 'yes'
+            if agree:
+                print(f"Car {name} added successfully.")
+            else:
+                car_manager.delete_car(name)
 
         elif choice == '2':
             prices = car_manager.get_prices()

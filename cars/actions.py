@@ -90,7 +90,7 @@ class CarManager:
 
         for idx, one_car in enumerate(self.cars):
             if one_car[0] == name:
-                return f"{name}'s car price is {one_car[1].get_car_price()}"
+                return f"{name}'s car price is {one_car[1].get_car_price()} NIS"
 
 all_cars = CarManager()
 
