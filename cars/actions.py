@@ -1,4 +1,5 @@
 class Car:
+    # i think it would be better to define it in the class as constants or enum. although this works nicely, its too much code and maybe a bit over-complex. but very nice job!
     def __init__(
         self, engine, breaks, small_treatment, full_treatment, filters_oil, gear
     ):
@@ -53,7 +54,7 @@ class Car:
     def get_car_problems(self):
         return ", ".join(self.problems)
 
-
+# this is nice work. 
 class CarManager:
     def __init__(self):
         self.cars = []
