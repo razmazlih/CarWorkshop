@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Cars</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Car List</h1>
+        <ul>
+            {% for car in cars %}
+                <li>{{ car['car_number'] }} - {{ car['problems'] }} - {{ car['total_price'] }} NIS</li>
+            {% endfor %}
+        </ul>
+        <a href="{{ url_for('cars.car_add') }}">Add Car</a>
+    </div>
+<div class="container">
+    <a href="/">Back</a>
+</div>
+</body>
+</html>

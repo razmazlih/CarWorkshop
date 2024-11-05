@@ -1,111 +1,50 @@
-class Car:
-    def __init__(
-        self, engine, breaks, small_treatment, full_treatment, filters_oil, gear
-    ):
-        self.problems = []
+import json
+from problems.problems import calculate_total_price, get_all_problems
 
-        if engine:
-            self.engine = 2000
-            self.problems.append("Engine")
-        else:
-            self.engine = 0
+cars = []
 
-        if breaks:
-            self.breaks = 1000
-            self.problems.append("Breaks")
-        else:
-            self.breaks = 0
+def load_cars():
+    global cars
+    try:
+        with open('data/cars.json', 'r') as file:
+            cars = json.load(file)
+    except FileNotFoundError:
+        cars = []
 
-        if small_treatment:
-            self.small_treatment = 500
-            self.problems.append("Small Treatment")
-        else:
-            self.small_treatment = 0
+def save_cars():
+    with open('data/cars.json', 'w') as file:
+        json.dump(cars, file)
 
-        if full_treatment:
-            self.full_treatment = 1000
-            self.problems.append("Full Treatment")
-        else:
-            self.full_treatment = 0
+def list_cars():
+    return cars
 
-        if filters_oil:
-            self.filters_oil = 250
-            self.problems.append("Filters and Oil")
-        else:
-            self.filters_oil = 0
+def add_car(car_data):
+    car = {
+        'car_number': car_data['car_number'],
+        'problems': car_data.getlist('problems')
+    }
+    car['total_price'] = calculate_total_price(car['problems'])
+    cars.append(car)
+    save_cars()
 
-        if gear:
-            self.gear = 1000
-            self.problems.append("Gear")
-        else:
-            self.gear = 0
+def delete_car(car_number):
+    global cars
+    cars = [car for car in cars if car['car_number'] != car_number]
+    save_cars()
 
-    def get_car_price(self):
-        return (
-            self.engine
-            + self.breaks
-            + self.small_treatment
-            + self.full_treatment
-            + self.filters_oil
-            + self.gear
-        )
+def search_car(car_number):
+    for car in cars:
+        if car['car_number'] == car_number:
+            return car
+    return None
 
-    def get_car_problems(self):
-        return ", ".join(self.problems)
+def get_total_income():
+    global cars
+    total = 0
+    for car in cars:
+        total += calculate_total_price(car['problems'])
+    return total
 
-
-class CarManager:
-    def __init__(self):
-        self.cars = []
-
-    def _check_have_cars(self):
-        return not self.cars
-
-    def add_car(
-        self, name, engine, breaks, small_treatment, full_treatment, filters_oil, gear
-    ):
-        new_car = Car(
-            engine, breaks, small_treatment, full_treatment, filters_oil, gear
-        )
-        self.cars.append((name, new_car))
-
-    def get_prices(self):
-        if self._check_have_cars():
-            return "Garage is empty"
-
-        for one_car in self.cars:
-            return one_car[0] + f" problems - ({one_car[1].get_car_problems()}), price is {one_car[1].get_car_price()} NIS"
-
-    def delete_car(self, name):
-        if self._check_have_cars():
-            return "Garage is empty"
-
-        for idx, one_car in enumerate(self.cars):
-            if one_car[0] == name:
-                self.cars.pop(idx)
-
-    def search_car(self, name):
-        if self._check_have_cars():
-            return "Garage is empty"
-
-        for idx, one_car in enumerate(self.cars):
-            if one_car[0] == name:
-                return f"{name}'s car price is {one_car[1].get_car_price()} NIS"
-
-    def get_total_profit(self):
-        if self._check_have_cars():
-            return ""
-
-        total_profit = 0
-        for one_car in self.cars:
-            car_class = one_car[1]
-            total_profit += car_class.get_car_price()
-
-        return f"total profit is {total_profit} NIS"
-
-all_cars = CarManager()
-
-# all_cars.add_car("Raz", True, True, True, True, True, True)
-# all_cars.add_car("Ron", True, True, True, True, True, True)
-
-print(all_cars.get_total_profit())
+def get_number_of_cars():
+    global cars
+    return len(cars)

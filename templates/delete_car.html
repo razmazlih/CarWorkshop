@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Car</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Delete Car</h1>
+        <form method="post" action="{{ url_for('cars.car_delete') }}">
+            <label for="car_number">Car Number:</label>
+            <input type="text" id="car_number" name="car_number" required><br>
+            <input type="submit" value="Delete Car">
+        </form>
+        <a href="{{ url_for('cars.car_list') }}">Back to Car List</a>
+    </div>
+<div class="container">
+    <a href="/">Back</a>
+</div>
+</body>
+</html>
